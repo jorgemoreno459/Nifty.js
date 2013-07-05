@@ -1,10 +1,8 @@
 
-Modal Window Effects
+Nifty.js
 =========
-A set of experimental modal window appearance effects with CSS transitions and animations. 
+Backbone views build on top of a set of experimental modal window appearance effects with CSS transitions and animations.
 
-[article on Codrops](http://tympanus.net/codrops/?p=15313)
+[Article on Codrops](http://tympanus.net/codrops/?p=15313)
 
-[demo](http://tympanus.net/Development/ModalWindowEffects/)
-
-[LICENSING & TERMS OF USE](http://tympanus.net/codrops/licensing/)
+[demo](http://blashill.com/nifty/)
