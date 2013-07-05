@@ -10,7 +10,7 @@
 		<meta name="author" content="Codrops" />
 		<link rel="shortcut icon" href="../favicon.ico"> 
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
-		<link rel="stylesheet" type="text/css" href="nifty.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/nifty.css" />
 		<style>
             .blue-bg {
                 background: #4d84ff;
@@ -48,11 +48,11 @@
 					<button onclick="showModal(15)">3D Rotate In Left</button>
                     <h3>Extensions</h3>
                     <button onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!')">Alert</button>
+                    <button onclick="showPrompt()">Prompt</button>
                     <button onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!', {className:'blue-bg'})">Custom Class</button>
 				</div>
 			</div>
 		</div><!-- /container -->
-		<div class="md-overlay"></div><!-- the overlay element -->
 
         <script type="text/html" id="example-content">
             <h3>Modal Dialog</h3>
@@ -70,7 +70,8 @@
 		<script src="js/underscore.js"></script>
 		<script src="js/jquery.js"></script>
 		<script src="js/backbone.js"></script>
-		<script src="nifty.min.js"></script>
+		<script src="js/templates.js"></script>
+		<script src="js/nifty.js"></script>
 
         <script type="text/javascript">
             var exampleHtmlContent = $("#example-content").html();
@@ -80,6 +81,17 @@
                     background: color || "#e74c3c",
                     effect: effect
                 });
+            }
+
+            function showPrompt() {
+                Nifty.confirm('Question', 'Should I stay or should I go?', {
+                    onclose: function(confirm) {
+                        if (confirm) {
+                            Nifty.alert("Yes!", "I'm outta here..");
+                        }
+                    },
+                    effect: 6
+                })
             }
         </script>
 	</body>

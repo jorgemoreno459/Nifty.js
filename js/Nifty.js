@@ -38,10 +38,10 @@ var Nifty = (function() {
         that.$modal.addClass('md-show');
       }, 0);
     },
-    hide: function() {
+    hide: function(value) {
       var that = this;
       this.$modal.removeClass('md-show');
-      this.options.onclose && this.options.onclose();
+      this.options.onclose && this.options.onclose(value);
       // TODO: could be done at a more precise time - listen to animation complete event?
       setTimeout(function() {
         that.$el.remove();
@@ -51,6 +51,20 @@ var Nifty = (function() {
 
   var AlertView = ModalView.extend({
     template: template("alert")
+  });
+
+  var ConfirmView = ModalView.extend({
+    template: template("confirm"),
+    events: _.extend({
+      "click .yes":"yesClicked",
+      "click .no":"noClicked"
+    }, ModalView.events),
+    yesClicked: function() {
+      this.hide(true);
+    },
+    noClicked: function() {
+      this.hide(false);
+    }
   });
 
   return {
@@ -64,6 +78,14 @@ var Nifty = (function() {
         message: message
       };
       new AlertView(options).open();
+    },
+    confirm: function(title, message, options) {
+      options = options || {};
+      options.model = {
+        title: title,
+        message: message
+      };
+      new ConfirmView(options).open();
     }
   }
 })();
