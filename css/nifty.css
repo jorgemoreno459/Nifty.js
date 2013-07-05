@@ -18,11 +18,6 @@ perspective effects (not including the modals and the overlay).
 	perspective: 600px;
 }
 
-.container {
-	background: #e74c3c;
-	min-height: 100%;
-}
-
 .md-modal {
 	position: fixed;
 	top: 50%;
@@ -55,7 +50,7 @@ perspective effects (not including the modals and the overlay).
 	left: 0;
 	z-index: 1000;
 	opacity: 0;
-	background: rgba(143,27,15,0.8);
+	background: rgba(0,0,0,0.6);
 	-webkit-transition: all 0.3s;
 	-moz-transition: all 0.3s;
 	transition: all 0.3s;
@@ -88,7 +83,7 @@ perspective effects (not including the modals and the overlay).
 
 .md-content > div {
 	padding: 15px 40px 30px;
-	margin: 0;
+    margin: 0;
 	font-weight: 300;
 	font-size: 1.15em;
 }
@@ -108,9 +103,22 @@ perspective effects (not including the modals and the overlay).
 }
 
 .md-content button {
-	display: block;
-	margin: 0 auto;
-	font-size: 0.8em;
+    border: none;
+    padding: 0.6em 1.2em;
+    background: rgba(0, 0, 0, 0.22);
+    color: #fff;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    display: block;
+    margin: 0 auto;
+    font-size: 0.8em;
+}
+
+.md-content button:hover {
+    background: rgba(0, 0, 0, 0.32);
 }
 
 /* Individual modal styles with animations/transitions */
@@ -530,7 +538,7 @@ perspective effects (not including the modals and the overlay).
 
 /* Effect 16:  Blur */
 .md-show.md-effect-16 ~ .md-overlay {
-	background: rgba(180,46,32,0.5);
+	background: rgba(255,255,255,0.5);
 }
 
 .md-show.md-effect-16 ~ .container {
@@ -611,7 +619,7 @@ perspective effects (not including the modals and the overlay).
 }
 
 .md-show.md-effect-18 ~ .md-overlay {
-	background: rgba(143,27,15,0.8);
+	background: rgba(0,0,0,0.6);
 	-webkit-transition: all 0.5s;
 	-moz-transition: all 0.5s;
 	transition: all 0.5s;
