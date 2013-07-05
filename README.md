@@ -6,7 +6,7 @@ Nifty.js
 
 Here's the story: some talented people created some modal window effects that I thought were cool. [Here is the article on Codrops](http://tympanus.net/codrops/?p=15313).
 
-I wanted to use these effects to wrote some Backbone views that leverages the CSS work done by others.
+I wanted to use these effects so I wrote some Backbone views that leverage the CSS work done by others.
 
 [Here's a demo](http://blashill.com/nifty/)
 
