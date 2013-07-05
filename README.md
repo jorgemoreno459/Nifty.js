@@ -29,3 +29,11 @@ Show a modal dialog:
 ```javascript
 Nifty.alert("Hello", "This looks amazing!");
 ```
+
+### Dependencies
+
+This library is built with Backbone views and thus the standard Backbone dependencies are required for it to work:
+
+- JQuery
+- underscore.js
+- backbone.js
