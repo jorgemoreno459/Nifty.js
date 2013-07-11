@@ -22,11 +22,11 @@ body, html { font-size: 100%; padding: 0; margin: 0; }
 body {
 	font-family: 'Lato', Calibri, Arial, sans-serif;
 	color: #fff;
-	background: #e74c3c;
+	background: rgb(46, 151, 80);
 }
 
 a {
-	color: #c0392b;
+	color: rgba(255,255,255,0.2);
 	text-decoration: none;
 }
 
@@ -44,7 +44,7 @@ a:active {
 
 .container > header {
 	text-align: center;
-	background: #d94839;
+	background: rgba(255,255,255,0.2);
 	padding: 3em;
 }
 
@@ -91,7 +91,7 @@ a:active {
 /* To Navigation Style */
 .codrops-top {
 	background: #fff;
-	background: rgba(255, 255, 255, 0.2);
+	background: rgba(0, 0, 0, 0.2);
 	text-transform: uppercase;
 	width: 100%;
 	font-size: 0.69em;
@@ -105,7 +105,7 @@ a:active {
 }
 
 .codrops-top a:hover {
-	color: #e74c3c;
+	color: rgba(0,0,0,0.4);
 	background: rgba(255,255,255,0.6);
 }
 

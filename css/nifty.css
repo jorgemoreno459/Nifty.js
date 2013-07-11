@@ -45,8 +45,8 @@
 
 /* Content styles */
 .md-content {
-	color: #fff;
-	background: #e74c3c;
+	color: #333;
+	background: #ffffff;
 	position: relative;
 	border-radius: 3px;
 	margin: 0 auto;
@@ -59,8 +59,9 @@
 	font-size: 1.8em;
 	font-weight: 300;
 	opacity: 0.8;
-	background: rgba(0,0,0,0.1);
+	background: rgb(46, 151, 80);
 	border-radius: 3px 3px 0 0;
+    color: white;
 }
 
 .md-content > div {
@@ -534,9 +535,9 @@
 }
 
 .md-show.md-effect-16 ~ .container {
-	-webkit-filter: blur(3px);
-	-moz-filter: blur(3px);
-	filter: blur(3px);
+	/*-webkit-filter: blur(3px);*/
+	/*-moz-filter: blur(3px);*/
+	/*filter: blur(3px);*/
 }
 
 .md-effect-16 .md-content {
