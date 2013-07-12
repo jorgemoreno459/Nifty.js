@@ -55,7 +55,7 @@ var Nifty = (function () {
       setTimeout(function () {
         that.$modal.addClass('nifty-show');
         that.onOpen();
-      }, 0);
+      }, 25);
       return this;
     },
     onOpen: function () {
