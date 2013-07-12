@@ -5,10 +5,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 		<title>Nifty.js</title>
-		<meta name="description" content="Nifty Modal Window Effects with CSS Transitions and Animations" />
-		<meta name="keywords" content="modal, window, overlay, modern, box, css transition, css animation, effect, 3d, perspective" />
-		<meta name="author" content="Codrops" />
-		<link rel="shortcut icon" href="../favicon.ico"> 
+		<meta name="description" content="Nifty.js simple but great looking javascript modal windows" />
+		<meta name="keywords" content="modal, window, overlay, javascript flat animation effect" />
 		<link rel="stylesheet" type="text/css" href="css/default.css" />
 		<link rel="stylesheet" type="text/css" href="css/nifty.css" />
 		<style>
@@ -20,14 +18,12 @@
 	<body>
 		<div class="container">
 			<!-- Top Navigation -->
-			<div class="codrops-top clearfix">
-				<span class="right"><a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=15313" target="_blank"><span>Back to the Codrops Article</span></a></span>
-			</div>
 			<header>
 				<h1>Nifty.js<span>Some simple but great looking modal windows</span></h1>
 			</header>
 			<div class="main clearfix">
 				<div class="column">
+                    <h3>Effects</h3>
 					<p>There are many possibilities for modal overlays to appear. Here are some modern ways of showing them using CSS transitions and animations.</p>
 				</div>
 				<div class="column">
@@ -46,12 +42,20 @@
 					<button onclick="showModal(13)">3D Slit</button>
 					<button onclick="showModal(14)">3D Rotate Bottom</button>
 					<button onclick="showModal(15)">3D Rotate In Left</button>
-                    <h3>Extensions</h3>
-                    <button onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!')">Alert</button>
-                    <button onclick="showPrompt()">Prompt</button>
-                    <button onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!', {className:'blue-bg'})">Custom Class</button>
 				</div>
 			</div>
+            <div class="main clearfix">
+				<div class="column">
+                    <button onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!')">Alert</button>
+                    <button onclick="showConfirm()">Confirm</button>
+                    <button onclick="showPrompt()">Prompt</button>
+                    <button onclick="Nifty.loading('Hold on a sec...').hideAfter(2000)">Loading</button>
+				</div>
+                <div class="column">
+                    <h3>Dialogs</h3>
+                    <p>More than just the basics. Some commonly used modal windows come ready to use!</p>
+                </div>
+            </div>
 		</div><!-- /container -->
 
         <script type="text/html" id="example-content">
@@ -63,7 +67,7 @@
                     <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
                     <li><strong>Close:</strong> click on the button below to close the modal.</li>
                 </ul>
-                <button class="md-close">Close me!</button>
+                <button class="nifty-close">Close me!</button>
             </div>
         </script>
 
@@ -83,14 +87,23 @@
                 });
             }
 
-            function showPrompt() {
+            function showConfirm() {
                 Nifty.confirm('Question', 'Should I stay or should I go?', {
                     onclose: function(confirm) {
                         if (confirm) {
                             Nifty.alert("Yes!", "I'm outta here..");
                         }
-                    },
-                    effect: 6
+                    }
+                })
+            }
+
+            function showPrompt() {
+                Nifty.prompt('Message', 'Enter your message below:', {
+                    onclose: function(message) {
+                        if (message) {
+                            Nifty.alert("Message", message);
+                        }
+                    }
                 })
             }
         </script>

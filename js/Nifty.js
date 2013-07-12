@@ -1,51 +1,89 @@
-var Nifty = (function() {
+var Nifty = (function () {
 
-  var template = function(name) {
+  var vent = _.extend({}, Backbone.Events);
+
+  $(window).keydown(function(e) {
+    if (e.which == 27) {
+      vent.trigger('escape');
+    }
+  });
+
+  var template = function (name) {
     return NiftyTemplates['templates/' + name + ".html"];
   };
 
   var ModalView = Backbone.View.extend({
     template: template("modal"),
     events: {
-      "click .md-overlay":"closeClicked",
-      "click .md-close":"closeClicked"
+      "click .nifty-overlay": "closeClicked",
+      "click .nifty-close": "closeClicked"
     },
-    initialize: function() {
+    initialize: function () {
+      if (!this.options.ignoreEscape) {
+        this.listenTo(vent, "escape", this.escapePressed);
+      }
+      this.initView();
       this.render();
     },
-    closeClicked: function() {
+    initView: function() {
+      // a placeholder for subclasses to so some init'in
+    },
+    escapePressed: function() {
       this.hide();
     },
-    render: function() {
+    closeClicked: function () {
+      this.hide();
+    },
+    render: function () {
       this.$el.empty().append(this.template(this.model || {}));
-      this.$modal = this.$el.find(".md-modal");
+      this.$modal = this.$el.find(".nifty-modal");
       this.setStyles();
       this.onRender();
     },
-    onRender: function() {
-      this.$modal.find(".md-content").append(this.options.content || "");
+    onRender: function () {
+      this.$modal.find(".nifty-content").append(this.options.content || "");
     },
-    setStyles: function() {
-      this.$modal.addClass("md-effect-" + (this.options.effect || 1));
+    setStyles: function () {
+      this.$modal.addClass("nifty-effect-" + (this.options.effect || 1));
       if (this.options.className) {
-        this.$modal.find('.md-content').addClass(this.options.className);
+        this.$modal.find('.nifty-content').addClass(this.options.className);
       }
     },
-    open: function() {
+    open: function () {
       var that = this;
       document.body.appendChild(this.el);
-      setTimeout(function() {
-        that.$modal.addClass('md-show');
+      setTimeout(function () {
+        that.$modal.addClass('nifty-show');
+        that.onOpen();
       }, 0);
+      return this;
     },
-    hide: function(value) {
+    onOpen: function () {
+    },
+    hide: function (value) {
       var that = this;
-      this.$modal.removeClass('md-show');
+      this.$modal.removeClass('nifty-show');
       this.options.onclose && this.options.onclose(value);
       // TODO: could be done at a more precise time - listen to animation complete event?
-      setTimeout(function() {
+      setTimeout(function () {
         that.$el.remove();
-      }, 1000);
+      }, 500);
+    }
+  });
+
+  var LoadingView = ModalView.extend({
+    template: template("loading"),
+    hideAfter: function(after) {
+      var hide = _.bind(this.hide, this);
+      if (_.isNumber(after)) {
+        setTimeout(hide, after);
+      } else if (_.isFunction(after.done) && _.isFunction(after.fail)) {
+        after.done(hide);
+        after.fail(hide);
+      }
+    },
+    setText: function(text) {
+      this.$el.find(".loading").html(text);
     }
   });
 
@@ -56,36 +94,87 @@ var Nifty = (function() {
   var ConfirmView = ModalView.extend({
     template: template("confirm"),
     events: _.extend({
-      "click .yes":"yesClicked",
-      "click .no":"noClicked"
+      "click .yes": "yesClicked",
+      "click .no": "noClicked"
     }, ModalView.events),
-    yesClicked: function() {
+    yesClicked: function () {
       this.hide(true);
     },
-    noClicked: function() {
+    noClicked: function () {
       this.hide(false);
     }
   });
 
+  var PromptView = ModalView.extend({
+    template: template("prompt"),
+    initView: function () {
+      this.model.type = this.model.type || "text";
+    },
+    validate: function (value) {
+      if (this.options.validate) {
+        return this.options.validate(value);
+      }
+    },
+    events: _.extend({
+      "click .ok": "okClicked",
+      "click .cancel": "cancelClicked"
+    }, ModalView.events),
+    okClicked: function () {
+      var value = this.$el.find("input").val();
+      var error = this.validate(value);
+      if (!error) {
+        this.hide(value);
+      } else {
+        this.showError(error);
+      }
+    },
+    cancelClicked: function () {
+      this.hide(false);
+    },
+    onOpen: function () {
+      this.$el.find("input").focus();
+    },
+    showError: function (error) {
+      this.$el.find(".nifty-error").html(error).show();
+    }
+  });
+
   return {
-    modal: function(options) {
+    modal: function (options) {
       new ModalView(options).open();
     },
-    alert: function(title, message, options) {
+    alert: function (title, message, options) {
       options = options || {};
       options.model = {
         title: title,
         message: message
       };
-      new AlertView(options).open();
+      return new AlertView(options).open();
     },
-    confirm: function(title, message, options) {
+    confirm: function (title, message, options) {
       options = options || {};
       options.model = {
         title: title,
         message: message
       };
-      new ConfirmView(options).open();
+      return new ConfirmView(options).open();
+    },
+    prompt: function (title, message, options) {
+      options = options || {};
+      options.model = {
+        title: title,
+        message: message
+      };
+      return new PromptView(options).open();
+    },
+    loading: function (message, options) {
+      options = options || {};
+      options.effect = 7;
+      options.ignoreEscape = true;
+      options.model = {
+        message: message
+      };
+      return new LoadingView(options).open();
     }
   }
 })();
