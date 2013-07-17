@@ -3,8 +3,13 @@ var Nifty = (function () {
   var vent = _.extend({}, Backbone.Events);
 
   $(window).keydown(function(e) {
-    if (e.which == 27) {
-      vent.trigger('escape');
+    switch(e.which) {
+      case 27:
+        vent.trigger('escape');
+        break;
+      case 13:
+        vent.trigger('enter');
+        break;
     }
   });
 
@@ -77,7 +82,7 @@ var Nifty = (function () {
       this.options.onclose && this.options.onclose(value);
       // TODO: could be done at a more precise time - listen to animation complete event?
       setTimeout(function () {
-        that.$el.remove();
+        that.remove();
       }, 500);
     }
   });
@@ -121,6 +126,9 @@ var Nifty = (function () {
   var PromptView = ModalView.extend({
     className: "nifty-prompt",
     template: template("prompt"),
+    initView: function() {
+      this.listenTo(vent, "enter", this.submit);
+    },
     setDefaults: function() {
       this.model.type = this.model.type || "text";
       this.model.value = this.model.value || "";
@@ -131,10 +139,10 @@ var Nifty = (function () {
       }
     },
     events: _.extend({
-      "click .ok": "okClicked",
+      "click .ok": "submit",
       "click .cancel": "cancelClicked"
     }, ModalView.events),
-    okClicked: function () {
+    submit: function() {
       var value = this.$el.find("input").val();
       var error = this.validate(value);
       if (!error) {
