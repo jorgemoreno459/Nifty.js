@@ -22,11 +22,15 @@ var Nifty = (function () {
       if (!this.options.ignoreEscape) {
         this.listenTo(vent, "escape", this.escapePressed);
       }
+      this.setDefaults();
       this.initView();
       this.render();
     },
     initView: function() {
       // a placeholder for subclasses to so some init'in
+    },
+    setDefaults: function() {
+      // a placeholder for subclasses to so set some default stuff
     },
     escapePressed: function() {
       this.hide();
@@ -47,11 +51,6 @@ var Nifty = (function () {
       } else {
         this.$modal.find(".nifty-content").append(this.options.content || "");
       }
-      if (this.options.onshow) {
-        setTimeout(function() {
-          that.options.onshow();
-        }, 500);
-      }
     },
     setStyles: function () {
       this.$modal.addClass("nifty-effect-" + (this.options.effect || 1));
@@ -64,12 +63,14 @@ var Nifty = (function () {
       document.body.appendChild(this.el);
       setTimeout(function () {
         that.$modal.addClass('nifty-show');
-        that.onOpen();
       }, 25);
+      setTimeout(function () {
+        that.onshow();
+        that.options.onshow();
+      }, 300);
       return this;
     },
-    onOpen: function () {
-    },
+    onshow: function () {},
     hide: function (value) {
       var that = this;
       this.$modal.removeClass('nifty-show');
@@ -120,8 +121,9 @@ var Nifty = (function () {
   var PromptView = ModalView.extend({
     className: "nifty-prompt",
     template: template("prompt"),
-    initView: function () {
+    setDefaults: function() {
       this.model.type = this.model.type || "text";
+      this.model.value = this.model.value || "";
     },
     validate: function (value) {
       if (this.options.validate) {
@@ -144,7 +146,7 @@ var Nifty = (function () {
     cancelClicked: function () {
       this.hide(false);
     },
-    onOpen: function () {
+    onshow: function () {
       this.$el.find("input").focus();
     },
     showError: function (error) {
@@ -178,6 +180,9 @@ var Nifty = (function () {
         title: title,
         message: message
       };
+      if (options.value) {
+        options.model.value = options.value;
+      }
       return new PromptView(options).open();
     },
     loading: function (message, options) {

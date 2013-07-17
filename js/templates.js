@@ -60,6 +60,8 @@ __p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <h3>
 ((__t = ( message )) == null ? '' : __t) +
 '</p>\n            <input type="' +
 ((__t = ( type )) == null ? '' : __t) +
+'" value="' +
+((__t = ( value )) == null ? '' : __t) +
 '">\n            <div class="nifty-buttons">\n                <button class="cancel">Cancel</button>\n                <button class="ok">OK</button>\n            </div>\n        </div>\n    </div>\n</div>\n<div class="nifty-overlay"></div>';
 
 }
