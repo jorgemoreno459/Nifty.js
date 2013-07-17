@@ -60,7 +60,7 @@
 	margin: 0 auto;
 }
 
-.nifty-content input {
+.nifty-prompt input {
     width: 100%;
     padding: 10px;
     border: 1px solid #c0c0c0;
@@ -90,7 +90,7 @@
     color: white;
 }
 
-.nifty-content > div {
+.nifty-content .nifty-inner {
 	padding: 15px 40px 30px;
     margin: 0;
 	font-weight: 300;

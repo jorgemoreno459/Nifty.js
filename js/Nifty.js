@@ -41,7 +41,17 @@ var Nifty = (function () {
       this.onRender();
     },
     onRender: function () {
-      this.$modal.find(".nifty-content").append(this.options.content || "");
+      if (this.options.contentView) {
+        this.$modal.find(".nifty-content").append(this.options.contentView.el);
+        this.options.contentView.render();
+      } else {
+        this.$modal.find(".nifty-content").append(this.options.content || "");
+      }
+      if (this.options.onshow) {
+        setTimeout(function() {
+          that.options.onshow();
+        }, 500);
+      }
     },
     setStyles: function () {
       this.$modal.addClass("nifty-effect-" + (this.options.effect || 1));
@@ -88,10 +98,12 @@ var Nifty = (function () {
   });
 
   var AlertView = ModalView.extend({
+    className: "nifty-alert",
     template: template("alert")
   });
 
   var ConfirmView = ModalView.extend({
+    className: "nifty-confirm",
     template: template("confirm"),
     events: _.extend({
       "click .yes": "yesClicked",
@@ -106,6 +118,7 @@ var Nifty = (function () {
   });
 
   var PromptView = ModalView.extend({
+    className: "nifty-prompt",
     template: template("prompt"),
     initView: function () {
       this.model.type = this.model.type || "text";
@@ -141,7 +154,7 @@ var Nifty = (function () {
 
   return {
     modal: function (options) {
-      new ModalView(options).open();
+      return new ModalView(options).open();
     },
     alert: function (title, message, options) {
       options = options || {};

@@ -6,7 +6,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <h3>' +
 ((__t = ( title )) == null ? '' : __t) +
-'</h3>\n        <div>\n            <p class="nifty-alert-message">' +
+'</h3>\n        <div class="nifty-inner">\n            <p class="nifty-alert-message">' +
 ((__t = ( message )) == null ? '' : __t) +
 '</p>\n            <div class="nifty-buttons">\n                <button class="nifty-close">OK</button>\n            </div>\n        </div>\n    </div>\n</div>\n<div class="nifty-overlay"></div>';
 
@@ -20,7 +20,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <h3>' +
 ((__t = ( title )) == null ? '' : __t) +
-'</h3>\n        <div>\n            <p>' +
+'</h3>\n        <div class="nifty-inner">\n            <p>' +
 ((__t = ( message )) == null ? '' : __t) +
 '</p>\n            <div class="nifty-buttons">\n                <button class="no">No</button>\n                <button class="yes">Yes</button>\n            </div>\n        </div>\n    </div>\n</div>\n<div class="nifty-overlay"></div>';
 
@@ -56,7 +56,7 @@ var __t, __p = '', __e = _.escape;
 with (obj) {
 __p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <h3>' +
 ((__t = ( title )) == null ? '' : __t) +
-'</h3>\n        <div class="nifty-error">This is a test error message</div>\n        <div>\n            <p>' +
+'</h3>\n        <div class="nifty-error">This is a test error message</div>\n        <div class="nifty-inner">\n            <p>' +
 ((__t = ( message )) == null ? '' : __t) +
 '</p>\n            <input type="' +
 ((__t = ( type )) == null ? '' : __t) +
