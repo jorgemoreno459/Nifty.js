@@ -71,7 +71,7 @@ var Nifty = (function () {
       }, 25);
       setTimeout(function () {
         that.onshow();
-        that.options.onshow();
+        that.options.onshow && that.options.onshow();
       }, 300);
       return this;
     },
