@@ -63,9 +63,18 @@ var Nifty = (function () {
         this.$modal.find('.nifty-content').addClass(this.options.className);
       }
     },
+    centerModal: function() {
+      if (parseInt(this.$modal.css('top')) > 0) {
+        var marginTop = - Math.round(this.$modal.height() / 2);
+        this.$modal.css('margin-top', marginTop);
+      }
+      var marginLeft = - Math.round(this.$modal.width() / 2);
+      this.$modal.css('margin-left', marginLeft);
+    },
     open: function () {
       var that = this;
       document.body.appendChild(this.el);
+      this.centerModal();
       setTimeout(function () {
         that.$modal.addClass('nifty-show');
       }, 25);
@@ -89,6 +98,10 @@ var Nifty = (function () {
 
   var LoadingView = ModalView.extend({
     template: template("loading"),
+    /**
+     * Hide this view either after a set amount of time passes or a Deferred promise is resolved / rejected
+     * @param after A millisecond timeout or a promise object
+     */
     hideAfter: function(after) {
       var hide = _.bind(this.hide, this);
       if (_.isNumber(after)) {
