@@ -106,6 +106,9 @@ var Nifty = (function () {
       var hide = _.bind(this.hide, this);
       if (_.isNumber(after)) {
         setTimeout(hide, after);
+      } else if (_.isFunction(after)) {
+        after();
+        hide();
       } else if (_.isFunction(after.done) && _.isFunction(after.fail)) {
         after.done(hide);
         after.fail(hide);
