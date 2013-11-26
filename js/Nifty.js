@@ -33,7 +33,7 @@ var Nifty = (function () {
       this.render();
     },
     initView: function () {
-      // a placeholder for subclasses to so some init'in
+      // a placeholder for subclasses to so some initialization
     },
     setDefaults: function () {
       // a placeholder for subclasses to so set some default stuff
