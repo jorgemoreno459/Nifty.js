@@ -12,9 +12,10 @@ I wanted to use these effects so I wrote some Backbone views that leverage the C
 
 ### Getting Started
 
-Link to the css:
+Link to the css (including bootstrap if you haven't already included it):
 
 ```html
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
 <link href="http://blashill.com/nifty/nifty.min.css" rel="stylesheet"/>
 ```
 
@@ -34,6 +35,6 @@ Nifty.alert("Hello", "This looks amazing!");
 
 This library is built with Backbone views and thus the standard Backbone dependencies are required for it to work:
 
-- JQuery
+- jQuery
 - underscore.js
 - backbone.js

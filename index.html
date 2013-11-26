@@ -1,111 +1,132 @@
 <!DOCTYPE html>
 <html lang="en" class="no-js">
-	<head>
-		<meta charset="UTF-8" />
-		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
-		<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-		<title>Nifty.js</title>
-		<meta name="description" content="Nifty.js simple but great looking javascript modal windows" />
-		<meta name="keywords" content="modal, window, overlay, javascript flat animation effect" />
-		<link rel="stylesheet" type="text/css" href="css/default.css" />
-		<link rel="stylesheet" type="text/css" href="css/nifty.css" />
-		<style>
-            .blue-bg h3 {
-                background: #345cff;
-            }
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<!-- Top Navigation -->
-			<header>
-				<h1>Nifty.js<span>Some simple but great looking modal windows</span></h1>
-			</header>
-			<div class="main clearfix">
-				<div class="column">
-                    <h3>Effects</h3>
-					<p>There are many possibilities for modal overlays to appear. Here are some modern ways of showing them using CSS transitions and animations.</p>
-				</div>
-				<div class="column">
-					<button onclick="showModal(1)">Fade in &amp; Scale</button>
-					<button onclick="showModal(2)">Slide in (right)</button>
-					<button onclick="showModal(3)">Slide in (bottom)</button>
-					<button onclick="showModal(4)">Newspaper</button>
-					<button onclick="showModal(5)">Fall</button>
-					<button onclick="showModal(6)">Side Fall</button>
-					<button onclick="showModal(7)">Sticky Up</button>
-					<button onclick="showModal(8)">3D Flip (horizontal)</button>
-					<button onclick="showModal(9)">3D Flip (vertical)</button>
-					<button onclick="showModal(10)">3D Sign</button>
-					<button onclick="showModal(11)">Super Scaled</button>
-					<button onclick="showModal(13)">3D Slit</button>
-					<button onclick="showModal(14)">3D Rotate Bottom</button>
-					<button onclick="showModal(15)">3D Rotate In Left</button>
-				</div>
-			</div>
-            <div class="main clearfix">
-				<div class="column">
-                    <button onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!')">Alert</button>
-                    <button onclick="showConfirm()">Confirm</button>
-                    <button onclick="showPrompt()">Prompt</button>
-                    <button onclick="Nifty.loading('Hold on a sec...').hideAfter(2000)">Loading</button>
-				</div>
-                <div class="column">
-                    <h3>Dialogs</h3>
-                    <p>More than just the basics. Some commonly used modal windows come ready to use!</p>
-                </div>
-            </div>
-		</div><!-- /container -->
+<head>
+  <meta charset="UTF-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nifty.js</title>
+  <meta name="description" content="Nifty.js simple but great looking javascript modal windows"/>
+  <meta name="keywords" content="modal, window, overlay, javascript flat animation effect"/>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="css/default.css"/>
+  <link rel="stylesheet" type="text/css" href="css/nifty.css"/>
+  <style>
+    .blue-bg h3 {
+      background: #345cff;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <!-- Top Navigation -->
+  <header>
+    <h1>Nifty.js<span>Some simple but great looking modal windows</span></h1>
+  </header>
+  <div class="main clearfix">
+    <div class="column">
+      <h3>Effects</h3>
 
-        <script type="text/html" id="example-content">
-            <h3>Modal Dialog</h3>
-            <div class="nifty-inner">
-                <p>This is a modal window. You can do the following things with it:</p>
-                <ul>
-                    <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what they say.</li>
-                    <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its presence.</li>
-                    <li><strong>Close:</strong> click on the button below to close the modal.</li>
-                </ul>
-                <button class="nifty-close">Close me!</button>
-            </div>
-        </script>
+      <p>There are many possibilities for modal overlays to appear. Here are some modern ways of showing them using CSS
+        transitions and animations.</p>
+    </div>
+    <div class="column">
+      <button class='btn btn-default' onclick="showModal(1)">Fade in &amp; Scale</button>
+      <button class='btn btn-default' onclick="showModal(2)">Slide in (right)</button>
+      <button class='btn btn-default' onclick="showModal(3)">Slide in (bottom)</button>
+      <button class='btn btn-default' onclick="showModal(4)">Newspaper</button>
+      <button class='btn btn-default' onclick="showModal(5)">Fall</button>
+      <button class='btn btn-default' onclick="showModal(6)">Side Fall</button>
+      <button class='btn btn-default' onclick="showModal(7)">Sticky Up</button>
+      <button class='btn btn-default' onclick="showModal(8)">3D Flip (horizontal)</button>
+      <button class='btn btn-default' onclick="showModal(9)">3D Flip (vertical)</button>
+      <button class='btn btn-default' onclick="showModal(10)">3D Sign</button>
+      <button class='btn btn-default' onclick="showModal(11)">Super Scaled</button>
+      <button class='btn btn-default' onclick="showModal(13)">3D Slit</button>
+      <button class='btn btn-default' onclick="showModal(14)">3D Rotate Bottom</button>
+      <button class='btn btn-default' onclick="showModal(15)">3D Rotate In Left</button>
+    </div>
+  </div>
+  <div class="main clearfix">
+    <div class="column">
+      <button class='btn btn-default' onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!')">Alert</button>
+      <button class='btn btn-default' onclick="showConfirm()">Confirm</button>
+      <button class='btn btn-default' onclick="showPrompt()">Prompt</button>
+      <button class='btn btn-default' onclick="showLogin()">Login</button>
+      <button class='btn btn-default' onclick="Nifty.loading('Hold on a sec...').hideAfter(2000)">Loading</button>
+    </div>
+    <div class="column">
+      <h3>Dialogs</h3>
 
-		<script src="js/underscore.js"></script>
-		<script src="js/jquery.js"></script>
-		<script src="js/backbone.js"></script>
-		<script src="js/templates.js"></script>
-		<script src="js/nifty.js"></script>
+      <p>More than just the basics. Some commonly used modal windows come ready to use!</p>
+    </div>
+  </div>
+</div>
+<!-- /container -->
 
-        <script type="text/javascript">
-            var exampleHtmlContent = $("#example-content").html();
-            function showModal(effect, color) {
-                Nifty.modal({
-                    content: exampleHtmlContent,
-                    background: color || "#e74c3c",
-                    effect: effect
-                });
-            }
+<script type="text/html" id="example-content">
+  <h3>Modal Dialog</h3>
+  <div class="nifty-inner">
+    <p>This is a modal window. You can do the following things with it:</p>
+    <ul>
+      <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what
+        they say.
+      </li>
+      <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its
+        presence.
+      </li>
+      <li><strong>Close:</strong> click on the button below to close the modal.</li>
+    </ul>
+    <div class="text-center">
+      <button class='btn btn-default nifty-close'>Close me!</button>
+    </div>
+  </div>
+</script>
 
-            function showConfirm() {
-                Nifty.confirm('Question', 'Should I stay or should I go?', {
-                    onclose: function(confirm) {
-                        if (confirm) {
-                            Nifty.alert("Yes!", "I'm outta here..");
-                        }
-                    }
-                })
-            }
+<script src="js/underscore.js"></script>
+<script src="js/jquery.js"></script>
+<script src="js/backbone.js"></script>
+<script src="js/templates.js"></script>
+<script src="js/nifty.js"></script>
 
-            function showPrompt() {
-                Nifty.prompt('Message', 'Enter your message below:', {
-                    onclose: function(message) {
-                        if (message) {
-                            Nifty.alert("Message", message);
-                        }
-                    },
-                    value: "Hello world!"
-                })
-            }
-        </script>
-	</body>
+<script type="text/javascript">
+  var exampleHtmlContent = $("#example-content").html();
+  function showModal(effect, color) {
+    Nifty.modal({
+      content: exampleHtmlContent,
+      background: color || "#e74c3c",
+      effect: effect
+    });
+  }
+
+  function showConfirm() {
+    Nifty.confirm('Question', 'Should I stay or should I go?', {
+      onclose: function (confirm) {
+        if (confirm) {
+          Nifty.alert("Yes!", "I'm outta here..");
+        }
+      }
+    });
+  }
+
+  function showPrompt() {
+    Nifty.prompt('Message', 'Enter your message below:', {
+      onclose: function (message) {
+        if (message) {
+          Nifty.alert("Message", message);
+        }
+      },
+      value: "Hello world!"
+    });
+  }
+
+  function showLogin() {
+    Nifty.login(function (credentials, loginView) {
+      if (credentials) {
+        loginView.hide();
+        Nifty.alert("Welcome", "Hello " + credentials.email);
+      }
+    });
+  }
+</script>
+</body>
 </html>
