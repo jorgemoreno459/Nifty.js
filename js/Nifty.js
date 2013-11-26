@@ -23,7 +23,8 @@ var Nifty = (function () {
       "click .nifty-overlay": "closeClicked",
       "click .nifty-close": "closeClicked"
     },
-    initialize: function () {
+    initialize: function (options) {
+      this.options = this.options || options;
       if (!this.options.ignoreEscape) {
         this.listenTo(vent, "escape", this.escapePressed);
       }
@@ -190,7 +191,7 @@ var Nifty = (function () {
       "submit form": "formSubmitted",
       "click #cancel-btn": "cancelClicked"
     }, ModalView.events),
-    formSubmitted: function(e) {
+    formSubmitted: function (e) {
       e.preventDefault();
       this.login();
     },
