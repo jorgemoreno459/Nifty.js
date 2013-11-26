@@ -5,10 +5,10 @@ var Nifty = (function () {
   $(window).keydown(function (e) {
     switch (e.which) {
       case 27:
-        vent.trigger('escape');
+        vent.trigger('escape', e);
         break;
       case 13:
-        vent.trigger('enter');
+        vent.trigger('enter', e);
         break;
     }
   });
@@ -66,7 +66,7 @@ var Nifty = (function () {
     },
     centerModal: function () {
       if (parseInt(this.$modal.css('top')) > 0) {
-        var marginTop = -Math.round(this.$modal.height() / 2);
+        var marginTop = -Math.round(this.$modal.height() / 2) - 30;
         this.$modal.css('margin-top', marginTop);
       }
       var marginLeft = -Math.round(this.$modal.width() / 2);
@@ -184,7 +184,7 @@ var Nifty = (function () {
     className: "nifty-login",
     template: template("login"),
     initView: function () {
-      this.listenTo(vent, "enter", this.submit);
+      this.listenTo(vent, "enter", this.enterPressed);
     },
     events: _.extend({
       "click #login-btn": "login",
@@ -200,7 +200,9 @@ var Nifty = (function () {
         return this.options.login(this.credentials(), this);
       }
     },
-    submit: function () {
+    enterPressed: function (e) {
+      e.preventDefault();
+      e.stopPropagation();
       this.login();
     },
     credentials: function () {

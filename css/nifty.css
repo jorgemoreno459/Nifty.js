@@ -12,10 +12,10 @@
 }
 
 .nifty-error {
-  padding: 7px 10px;
-  background: rgb(192, 97, 97);
-  color: white;
-  margin: 0 20px;
+  padding: 10px 40px;
+  color: #fff;
+  margin: 5px;
+  background-color: #d9534f;
   display: none;
 }
 
