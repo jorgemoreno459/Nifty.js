@@ -2,8 +2,8 @@ var Nifty = (function () {
 
   var vent = _.extend({}, Backbone.Events);
 
-  $(window).keydown(function(e) {
-    switch(e.which) {
+  $(window).keydown(function (e) {
+    switch (e.which) {
       case 27:
         vent.trigger('escape');
         break;
@@ -31,13 +31,13 @@ var Nifty = (function () {
       this.initView();
       this.render();
     },
-    initView: function() {
+    initView: function () {
       // a placeholder for subclasses to so some init'in
     },
-    setDefaults: function() {
+    setDefaults: function () {
       // a placeholder for subclasses to so set some default stuff
     },
-    escapePressed: function() {
+    escapePressed: function () {
       this.hide();
     },
     closeClicked: function () {
@@ -63,12 +63,12 @@ var Nifty = (function () {
         this.$modal.find('.nifty-content').addClass(this.options.className);
       }
     },
-    centerModal: function() {
+    centerModal: function () {
       if (parseInt(this.$modal.css('top')) > 0) {
-        var marginTop = - Math.round(this.$modal.height() / 2);
+        var marginTop = -Math.round(this.$modal.height() / 2);
         this.$modal.css('margin-top', marginTop);
       }
-      var marginLeft = - Math.round(this.$modal.width() / 2);
+      var marginLeft = -Math.round(this.$modal.width() / 2);
       this.$modal.css('margin-left', marginLeft);
     },
     open: function () {
@@ -84,7 +84,8 @@ var Nifty = (function () {
       }, 300);
       return this;
     },
-    onshow: function () {},
+    onshow: function () {
+    },
     hide: function (value) {
       var that = this;
       this.$modal.removeClass('nifty-show');
@@ -102,7 +103,7 @@ var Nifty = (function () {
      * Hide this view either after a set amount of time passes or a Deferred promise is resolved / rejected
      * @param after A millisecond timeout or a promise object
      */
-    hideAfter: function(after) {
+    hideAfter: function (after) {
       var hide = _.bind(this.hide, this);
       if (_.isNumber(after)) {
         setTimeout(hide, after);
@@ -114,7 +115,7 @@ var Nifty = (function () {
         after.fail(hide);
       }
     },
-    setText: function(text) {
+    setText: function (text) {
       this.$el.find(".loading").html(text);
     }
   });
@@ -128,8 +129,8 @@ var Nifty = (function () {
     className: "nifty-confirm",
     template: template("confirm"),
     events: _.extend({
-      "click .yes": "yesClicked",
-      "click .no": "noClicked"
+      "click #yes-btn": "yesClicked",
+      "click #no-btn": "noClicked"
     }, ModalView.events),
     yesClicked: function () {
       this.hide(true);
@@ -142,10 +143,10 @@ var Nifty = (function () {
   var PromptView = ModalView.extend({
     className: "nifty-prompt",
     template: template("prompt"),
-    initView: function() {
+    initView: function () {
       this.listenTo(vent, "enter", this.submit);
     },
-    setDefaults: function() {
+    setDefaults: function () {
       this.model.type = this.model.type || "text";
       this.model.value = this.model.value || "";
     },
@@ -155,10 +156,10 @@ var Nifty = (function () {
       }
     },
     events: _.extend({
-      "click .ok": "submit",
-      "click .cancel": "cancelClicked"
+      "click #ok-btn": "submit",
+      "click #cancel-btn": "cancelClicked"
     }, ModalView.events),
-    submit: function() {
+    submit: function () {
       var value = this.$el.find("input").val();
       var error = this.validate(value);
       if (!error) {
@@ -172,6 +173,47 @@ var Nifty = (function () {
     },
     onshow: function () {
       this.$el.find("input").focus();
+    },
+    showError: function (error) {
+      this.$el.find(".nifty-error").html(error).show();
+    }
+  });
+
+  var LoginView = ModalView.extend({
+    className: "nifty-login",
+    template: template("login"),
+    initView: function () {
+      this.listenTo(vent, "enter", this.submit);
+    },
+    events: _.extend({
+      "click #login-btn": "login",
+      "submit form": "formSubmitted",
+      "click #cancel-btn": "cancelClicked"
+    }, ModalView.events),
+    formSubmitted: function(e) {
+      e.preventDefault();
+      this.login();
+    },
+    login: function () {
+      if (this.options.login) {
+        return this.options.login(this.credentials(), this);
+      }
+    },
+    submit: function () {
+      this.login();
+    },
+    credentials: function () {
+      return {
+        email: this.$el.find("[id=email]").val(),
+        password: this.$el.find("[id=password]").val()
+      };
+    },
+    cancelClicked: function (e) {
+      e.preventDefault();
+      this.hide(false);
+    },
+    onshow: function () {
+      this.$el.find("[id=email]").focus();
     },
     showError: function (error) {
       this.$el.find(".nifty-error").html(error).show();
@@ -208,6 +250,12 @@ var Nifty = (function () {
         options.model.value = options.value;
       }
       return new PromptView(options).open();
+    },
+    login: function (loginCallback) {
+      var options = {
+        login: loginCallback
+      };
+      return new LoginView(options).open();
     },
     loading: function (message, options) {
       options = options || {};
