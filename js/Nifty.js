@@ -271,7 +271,12 @@ var Nifty = (function () {
         message: message
       };
       var modal = new ConfirmView(options);
-      return openModal(modal);
+      return new Promise(function(resolve, reject) {
+        modal.once('close', function(confirmed) {
+          confirmed ? resolve() : reject();
+        });
+        modal.open();
+      });
     },
     prompt: function (title, message, options) {
       options = options || {};
