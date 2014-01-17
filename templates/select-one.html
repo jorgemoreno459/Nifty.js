@@ -5,8 +5,15 @@
     <div class="nifty-inner">
       <p><%= message %></p>
       <select class="form-control">
-        <% _.each(options, function(option) { %>
+        <%
+        _.each(options, function(option) {
+          if (_.isString(option)) {
+        %>
         <option><%= option %></option>
+        <% } else { %>
+        <option value="<%= option.value %>"><%= option.label %></option>
+        <% } %>
+
         <% }); %>
       </select>
       <div class="nifty-buttons">

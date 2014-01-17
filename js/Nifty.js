@@ -288,7 +288,12 @@ var Nifty = (function () {
         options.model.value = options.value;
       }
       var modal = new PromptView(options);
-      return openModal(modal);
+      return new Promise(function(resolve, reject) {
+        modal.once('close', function(value) {
+          value ? resolve(value) : reject();
+        });
+        modal.open();
+      });
     },
     selectOne: function(model) {
       model.title = model.title || "";
