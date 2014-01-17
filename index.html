@@ -51,7 +51,6 @@
       <button class='btn btn-default' onclick="Nifty.alert('Hello!', 'This modal dialog is amazing!')">Alert</button>
       <button class='btn btn-default' onclick="showConfirm()">Confirm</button>
       <button class='btn btn-default' onclick="showPrompt()">Prompt</button>
-      <button class='btn btn-default' onclick="showLogin()">Login</button>
       <button class='btn btn-default' onclick="showSelectOne()">Select One</button>
       <button class='btn btn-default' onclick="Nifty.loading('Hold on a sec...').hideAfter(2000)">Loading</button>
     </div>
@@ -101,46 +100,37 @@
   }
 
   function showConfirm() {
-    Nifty.confirm('Question', 'Should I stay or should I go?', {
-      onclose: function (confirm) {
-        if (confirm) {
-          Nifty.alert("Yes!", "I'm outta here..");
-        }
-      }
-    });
+    Nifty.confirm('Question', 'Should I stay or should I go?')
+        .then(function(confirm) {
+          if (confirm) {
+            Nifty.alert("Yes!", "I'm outta here..");
+          }
+        });
   }
 
   function showPrompt() {
-    Nifty.prompt('Message', 'Enter your message below:', {
-      onclose: function (message) {
-        if (message) {
-          Nifty.alert("Message", message);
-        }
-      },
-      value: "Hello world!"
-    });
+    Nifty.prompt('Message', 'Enter your message below:', {value: "Hello world!"})
+        .then(function(message) {
+          if (message) {
+            Nifty.alert("Message", message);
+          }
+        });
   }
 
   function showSelectOne() {
-    Nifty.selectOne({
+    var model = {
       title: 'Favourite color',
       message: 'What is your favourite color?',
       options: ["Red", "Blue", "Green"]
-    })
-      .then(function(selected) {
-        if (selected) {
-          Nifty.alert("Sweet!", selected + " is my favourite colour too!");
-        }
-      });
+    };
+    var modalClosed = function(selected) {
+      if (selected) {
+        Nifty.alert("Sweet!", selected + " is my favourite colour too!");
+      }
+    };
+    Nifty.selectOne(model).then(modalClosed);
   }
 
-  function showLogin() {
-    Nifty.login(function (credentials, loginView) {
-      if (credentials) {
-        loginView.showError('Login failed');
-      }
-    });
-  }
 </script>
 </body>
 </html>

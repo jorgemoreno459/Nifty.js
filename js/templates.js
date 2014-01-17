@@ -40,16 +40,6 @@ __p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <div
 return __p
 };
 
-this["NiftyTemplates"]["templates/login.html"] = function(obj) {
-obj || (obj = {});
-var __t, __p = '', __e = _.escape;
-with (obj) {
-__p += '<div class="nifty-modal">\n  <div class="nifty-content">\n    <h3>Login</h3>\n    <div class="nifty-error">This is a test error message</div>\n    <div class="nifty-inner">\n      <form role="form">\n        <div class="form-group">\n          <label for="email">Email address</label>\n          <input type="text" class="form-control" id="email">\n        </div>\n        <div class="form-group">\n          <label for="password">Password</label>\n          <input type="password" class="form-control" id="password">\n        </div>\n        <div class="nifty-buttons">\n          <button id="cancel-btn" class="btn btn-default">Cancel</button>\n          <button type="submit" id="login-btn" class="btn btn-default">Login</button>\n        </div>\n      </form>\n    </div>\n  </div>\n</div>\n<div class="nifty-overlay"></div>';
-
-}
-return __p
-};
-
 this["NiftyTemplates"]["templates/modal.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;

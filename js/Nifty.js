@@ -91,6 +91,7 @@ var Nifty = (function () {
       var that = this;
       this.$modal.removeClass('nifty-show');
       this.options.onclose && this.options.onclose(value);
+      this.trigger('close', value);
       // TODO: could be done at a more precise time - listen to animation complete event?
       setTimeout(function () {
         that.remove();
@@ -242,9 +243,17 @@ var Nifty = (function () {
     }
   });
 
+  var openModal = function(modal) {
+    return new Promise(function(resolve) {
+      modal.once('close', resolve);
+      modal.open();
+    });
+  };
+
   return {
     modal: function (options) {
-      return new ModalView(options).open();
+      var modal = new ModalView(options);
+      return openModal(modal);
     },
     alert: function (title, message, options) {
       options = options || {};
@@ -252,7 +261,8 @@ var Nifty = (function () {
         title: title,
         message: message
       };
-      return new AlertView(options).open();
+      var modal = new AlertView(options);
+      return openModal(modal);
     },
     confirm: function (title, message, options) {
       options = options || {};
@@ -260,7 +270,8 @@ var Nifty = (function () {
         title: title,
         message: message
       };
-      return new ConfirmView(options).open();
+      var modal = new ConfirmView(options);
+      return openModal(modal);
     },
     prompt: function (title, message, options) {
       options = options || {};
@@ -271,23 +282,16 @@ var Nifty = (function () {
       if (options.value) {
         options.model.value = options.value;
       }
-      return new PromptView(options).open();
+      var modal = new PromptView(options);
+      return openModal(modal);
     },
     selectOne: function(model) {
       model.title = model.title || "";
       model.message = model.message || "";
-      return new Promise(function(resolve) {
-        new SelectOneView({
-          model: model,
-          onclose: resolve
-        }).open();
+      var modal = new SelectOneView({
+        model: model
       });
-    },
-    login: function (loginCallback) {
-      var options = {
-        login: loginCallback
-      };
-      return new LoginView(options).open();
+      return openModal(modal);
     },
     loading: function (message, options) {
       options = options || {};
@@ -296,7 +300,8 @@ var Nifty = (function () {
       options.model = {
         message: message
       };
-      return new LoadingView(options).open();
+      var modal = new LoadingView(options);
+      return modal.open();
     }
   }
 })();
