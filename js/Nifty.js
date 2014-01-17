@@ -180,6 +180,25 @@ var Nifty = (function () {
     }
   });
 
+  var SelectOneView = ModalView.extend({
+    className: "nifty-select-one",
+    template: template("select-one"),
+    initView: function () {
+      this.listenTo(vent, "enter", this.submit);
+    },
+    events: _.extend({
+      "click #ok-btn": "submit",
+      "click #cancel-btn": "cancelClicked"
+    }, ModalView.events),
+    submit: function () {
+      var value = this.$el.find("select").val();
+      this.hide(value);
+    },
+    cancelClicked: function () {
+      this.hide(false);
+    }
+  });
+
   var LoginView = ModalView.extend({
     className: "nifty-login",
     template: template("login"),
@@ -253,6 +272,16 @@ var Nifty = (function () {
         options.model.value = options.value;
       }
       return new PromptView(options).open();
+    },
+    selectOne: function(model) {
+      model.title = model.title || "";
+      model.message = model.message || "";
+      return new Promise(function(resolve) {
+        new SelectOneView({
+          model: model,
+          onclose: resolve
+        }).open();
+      });
     },
     login: function (loginCallback) {
       var options = {

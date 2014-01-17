@@ -52,6 +52,7 @@
       <button class='btn btn-default' onclick="showConfirm()">Confirm</button>
       <button class='btn btn-default' onclick="showPrompt()">Prompt</button>
       <button class='btn btn-default' onclick="showLogin()">Login</button>
+      <button class='btn btn-default' onclick="showSelectOne()">Select One</button>
       <button class='btn btn-default' onclick="Nifty.loading('Hold on a sec...').hideAfter(2000)">Loading</button>
     </div>
     <div class="column">
@@ -86,6 +87,7 @@
 <script src="js/jquery.js"></script>
 <script src="js/backbone.js"></script>
 <script src="js/templates.js"></script>
+<script src="js/promises.js"></script>
 <script src="js/nifty.js"></script>
 
 <script type="text/javascript">
@@ -117,6 +119,19 @@
       },
       value: "Hello world!"
     });
+  }
+
+  function showSelectOne() {
+    Nifty.selectOne({
+      title: 'Favourite color',
+      message: 'What is your favourite color?',
+      options: ["Red", "Blue", "Green"]
+    })
+      .then(function(selected) {
+        if (selected) {
+          Nifty.alert("Sweet!", selected + " is my favourite colour too!");
+        }
+      });
   }
 
   function showLogin() {

@@ -28,6 +28,7 @@ module.exports = function(grunt) {
         files: {
           "nifty.min.js": [
             "js/templates.js",
+            "js/promises.js",
             "js/nifty.js"
           ]
         }

@@ -77,3 +77,24 @@ __p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <h3>
 }
 return __p
 };
+
+this["NiftyTemplates"]["templates/select-one.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape, __j = Array.prototype.join;
+function print() { __p += __j.call(arguments, '') }
+with (obj) {
+__p += '<div class="nifty-modal">\n  <div class="nifty-content">\n    <h3>' +
+((__t = ( title )) == null ? '' : __t) +
+'</h3>\n    <div class="nifty-error"></div>\n    <div class="nifty-inner">\n      <p>' +
+((__t = ( message )) == null ? '' : __t) +
+'</p>\n      <select class="form-control">\n        ';
+ _.each(options, function(option) { ;
+__p += '\n        <option>' +
+((__t = ( option )) == null ? '' : __t) +
+'</option>\n        ';
+ }); ;
+__p += '\n      </select>\n      <div class="nifty-buttons">\n        <button id="cancel-btn" class="btn btn-default">Cancel</button>\n        <button id="ok-btn" class="btn btn-default">OK</button>\n      </div>\n    </div>\n  </div>\n</div>\n<div class="nifty-overlay"></div>';
+
+}
+return __p
+};
