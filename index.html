@@ -53,6 +53,7 @@
       <button class='btn btn-default' onclick="showPrompt()">Prompt</button>
       <button class='btn btn-default' onclick="showSelectOne()">Select One</button>
       <button class='btn btn-default' onclick="Nifty.loading('Hold on a sec...').hideAfter(2000)">Loading</button>
+      <button class='btn btn-default' onclick="showImage()">Image</button>
     </div>
     <div class="column">
       <h3>Dialogs</h3>
@@ -68,7 +69,7 @@
   <div class="nifty-inner">
     <p>This is a modal window. You can do the following things with it:</p>
     <ul>
-      <li><strong>Read:</strong> modal windows will probably tell you something important so don't forget to read what
+      <li><strong>Read:</strong> modal windows will probably tell you something important so dont forget to read what
         they say.
       </li>
       <li><strong>Look:</strong> a modal window enjoys a certain kind of attention; just look at it and appreciate its
@@ -104,6 +105,13 @@
         .then(function() {
           Nifty.alert("Yes!", "I'm outta here..");
         });
+  }
+
+  function showImage() {
+    var image = "https://s3.amazonaws.com/TN-Test-Media/344dbb8549c0d0f497cef6f3cbe0facbe42732de4efc8354fb919bd92145f81f.jpeg";
+    //var image = "https://s3.amazonaws.com/TN-Test-Media/34688a163ee85c77c5b0a890dd6f8fd59d5b4243ac135222219ced2e59f801d2.jpeg";
+    //var image = "https://s3.amazonaws.com/TN-Test-Media/99500fdc805d95f894c2d530c4b72724e1a5ea6fda1ec4abea315c902e776444.jpeg";
+    Nifty.image(image);
   }
 
   function showPrompt() {

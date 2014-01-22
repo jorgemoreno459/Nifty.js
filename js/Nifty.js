@@ -30,7 +30,6 @@ var Nifty = (function () {
       }
       this.setDefaults();
       this.initView();
-      this.render();
     },
     initView: function () {
       // a placeholder for subclasses to so some initialization
@@ -48,15 +47,19 @@ var Nifty = (function () {
       this.$el.empty().append(this.template(this.model || {}));
       this.$modal = this.$el.find(".nifty-modal");
       this.setStyles();
+      this.onRenderInternal();
       this.onRender();
     },
-    onRender: function () {
+    onRenderInternal: function() {
       if (this.options.contentView) {
         this.$modal.find(".nifty-content").append(this.options.contentView.el);
         this.options.contentView.render();
       } else {
         this.$modal.find(".nifty-content").append(this.options.content || "");
       }
+    },
+    onRender: function () {
+      // a placeholder for subclasses to so something on rendering
     },
     setStyles: function () {
       this.$modal.addClass("nifty-effect-" + (this.options.effect || 1));
@@ -71,6 +74,7 @@ var Nifty = (function () {
       }
       var marginLeft = -Math.round(this.$modal.width() / 2);
       this.$modal.css('margin-left', marginLeft);
+      this.$modal.css('left', '50%');
     },
     open: function () {
       var that = this;
@@ -119,6 +123,21 @@ var Nifty = (function () {
     },
     setText: function (text) {
       this.$el.find(".loading").html(text);
+    }
+  });
+
+
+  var ImageView = ModalView.extend({
+    className: "nifty-image",
+    template: template("image"),
+    loadImage: function () {
+      var that = this;
+      return new Promise(function(resolve, reject) {
+        var image = new Image();
+        image.onload = resolve;
+        image.onerror = reject;
+        image.src = that.options.model.image;
+      });
     }
   });
 
@@ -246,6 +265,7 @@ var Nifty = (function () {
   var openModal = function(modal) {
     return new Promise(function(resolve) {
       modal.once('close', resolve);
+      modal.render();
       modal.open();
     });
   };
@@ -275,6 +295,7 @@ var Nifty = (function () {
         modal.once('close', function(confirmed) {
           confirmed ? resolve() : reject();
         });
+        modal.render();
         modal.open();
       });
     },
@@ -292,6 +313,7 @@ var Nifty = (function () {
         modal.once('close', function(value) {
           value ? resolve(value) : reject();
         });
+        modal.render();
         modal.open();
       });
     },
@@ -311,7 +333,25 @@ var Nifty = (function () {
         message: message
       };
       var modal = new LoadingView(options);
+      modal.render();
       return modal.open();
+    },
+    image: function(image, options) {
+      options = options || {};
+      options.model = {
+        image: image
+      };
+      var modal = new ImageView(options);
+      return new Promise(function(resolve, reject) {
+        modal.loadImage() 
+          .then(function() {
+            modal.once('close', resolve);
+            modal.render();
+            modal.open();
+          }).catch(function(err) {
+            reject(err);
+          });
+      });   
     }
   }
 })();
