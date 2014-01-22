@@ -28,6 +28,18 @@ __p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <h3>
 return __p
 };
 
+this["NiftyTemplates"]["templates/image.html"] = function(obj) {
+obj || (obj = {});
+var __t, __p = '', __e = _.escape;
+with (obj) {
+__p += '<div class="nifty-modal">\n    <div class="nifty-content">\n        <div class="image">\n          <img src="' +
+((__t = ( image )) == null ? '' : __t) +
+'">\n        </div>\n    </div>\n</div>\n<div class="nifty-overlay"></div>';
+
+}
+return __p
+};
+
 this["NiftyTemplates"]["templates/loading.html"] = function(obj) {
 obj || (obj = {});
 var __t, __p = '', __e = _.escape;
