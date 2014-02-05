@@ -113,12 +113,22 @@
   }
 
   function showPrompt() {
-    Nifty.prompt('Message', 'Enter your message below:', {value: "Hello world!"})
-        .then(function(message) {
-          if (message) {
-            Nifty.alert("Message", message);
-          }
-        });
+    var fields = [{
+      label: "Enter your message below:",
+      name: "message",
+      value: "Hello world!"
+    }, {
+      label: "You can enter multiple fields!",
+      name: "multiple",
+      value: "Multi-field prompts!"
+    }];
+
+    Nifty.prompt('Message', fields)
+      .then(function(promptData) {
+        if (promptData.message) {
+          Nifty.alert("Message", promptData.message + " and " + promptData.multiple);
+        }
+      });
   }
 
   function showSelectOne() {

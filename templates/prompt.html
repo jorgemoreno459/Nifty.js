@@ -3,8 +3,10 @@
         <h3><%= title %></h3>
         <div class="nifty-error">This is a test error message</div>
         <div class="nifty-inner">
-            <p><%= message %></p>
-            <input type="<%= type %>" value="<%= value %>">
+            <% _.each(fields, function(field) { %>
+                <p class="field-label"><%= field.label %></p>
+                <input type="<%= field.type || 'text' %>" name="<%= field.name %>" value="<%= field.value %>">
+            <% }); %>
             <div class="nifty-buttons">
                 <button id="cancel-btn" class="btn btn-default">Cancel</button>
                 <button id="ok-btn" class="btn btn-default">OK</button>

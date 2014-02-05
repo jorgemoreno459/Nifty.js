@@ -167,13 +167,18 @@ var Nifty = (function () {
     initView: function () {
       this.listenTo(vent, "enter", this.submit);
     },
-    setDefaults: function () {
-      this.model.type = this.model.type || "text";
-      this.model.value = this.model.value || "";
+    setDefaults: function() {
+      this.model.fields = _.map(this.model.fieldInputs, function(field) {
+        if (!_.isObject(field)) {
+          return {label: field, name: field};
+        } else {
+          return field;
+        }
+      });
     },
-    validate: function (value) {
+    validate: function (promptData) {
       if (this.options.validate) {
-        return this.options.validate(value);
+        return this.options.validate(promptData);
       }
     },
     events: _.extend({
@@ -181,10 +186,13 @@ var Nifty = (function () {
       "click #cancel-btn": "cancelClicked"
     }, ModalView.events),
     submit: function () {
-      var value = this.$el.find("input").val();
-      var error = this.validate(value);
+      var promptData = {};
+      _.each(this.model.fields, function(field) {
+        promptData[field.name] = $("input[name=" + field.name + "]").val();
+      });
+      var error = this.validate(promptData);
       if (!error) {
-        this.hide(value);
+        this.hide(promptData);
       } else {
         this.showError(error);
       }
@@ -193,7 +201,7 @@ var Nifty = (function () {
       this.hide(false);
     },
     onshow: function () {
-      this.$el.find("input").focus();
+      this.$el.find("input").first().focus();
     },
     showError: function (error) {
       this.$el.find(".nifty-error").html(error).show();
@@ -299,19 +307,16 @@ var Nifty = (function () {
         modal.open();
       });
     },
-    prompt: function (title, message, options) {
+    prompt: function (title, fieldInputs, options) {
       options = options || {};
       options.model = {
         title: title,
-        message: message
+        fieldInputs: fieldInputs
       };
-      if (options.value) {
-        options.model.value = options.value;
-      }
       var modal = new PromptView(options);
       return new Promise(function(resolve, reject) {
-        modal.once('close', function(value) {
-          value ? resolve(value) : reject();
+        modal.once('close', function(promptData) {
+          promptData ? resolve(promptData) : reject();
         });
         modal.render();
         modal.open();
