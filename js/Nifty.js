@@ -54,6 +54,7 @@ var Nifty = (function () {
       if (this.options.contentView) {
         this.$modal.find(".nifty-content").append(this.options.contentView.el);
         this.options.contentView.render();
+        this.options.contentView.parent = this;
       } else {
         this.$modal.find(".nifty-content").append(this.options.content || "");
       }
