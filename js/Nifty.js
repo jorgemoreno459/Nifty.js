@@ -70,7 +70,11 @@ var Nifty = (function () {
     },
     centerModal: function () {
       if (parseInt(this.$modal.css('top')) > 0) {
-        var marginTop = -Math.round(this.$modal.height() / 2) - 30;
+        var topOffset = 30;
+        if ($(window).height() <= 700) {
+          topOffset = 0;
+        }
+        var marginTop = -Math.round(this.$modal.height() / 2) - topOffset;
         this.$modal.css('margin-top', marginTop);
       }
       var marginLeft = -Math.round(this.$modal.width() / 2);
