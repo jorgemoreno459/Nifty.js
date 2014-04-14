@@ -87,7 +87,7 @@ var Nifty = (function () {
       this.centerModal();
       setTimeout(function () {
         that.$modal.addClass('nifty-show');
-        that.$modal.closest(".nifty-overlay").addClass('nifty-show');
+        that.$modal.siblings(".nifty-overlay").addClass('nifty-show');
       }, 25);
       setTimeout(function () {
         that.onshow();
@@ -100,7 +100,7 @@ var Nifty = (function () {
     hide: function (value) {
       var that = this;
       this.$modal.removeClass('nifty-show');
-      this.$modal.closest(".nifty-overlay").removeClass('nifty-show');
+      this.$modal.siblings(".nifty-overlay").removeClass('nifty-show');
       this.options.onclose && this.options.onclose(value);
       this.trigger('close', value);
       // TODO: could be done at a more precise time - listen to animation complete event?
