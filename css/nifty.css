@@ -38,7 +38,7 @@
   transition: all 0.3s;
 }
 
-.nifty-show ~ .nifty-overlay {
+.nifty-show.nifty-overlay {
   opacity: 1;
   visibility: visible;
 }
