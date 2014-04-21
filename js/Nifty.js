@@ -355,15 +355,13 @@ var Nifty = (function () {
       };
       var modal = new ImageView(options);
       return new Promise(function(resolve, reject) {
-        modal.loadImage() 
+        modal.loadImage()
           .then(function() {
             modal.once('close', resolve);
             modal.render();
             modal.open();
-          }).catch(function(err) {
-            reject(err);
-          });
-      });   
+          })["catch"](reject);
+      });
     }
   }
 })();
